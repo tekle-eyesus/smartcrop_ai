@@ -2,7 +2,7 @@
 
 **SmartCrop AI** is an intelligent mobile application that empowers smallholder farmers with AI-driven crop disease detection and expert farming recommendations. It leverages image recognition and machine learning to identify diseases in several crops, and provides practical mitigation guidance tailored to each case even in offline environments.
 
-## 🌿 App Overview
+## App Overview
 
 In many farming communities, timely identification and management of crop diseases is a major challenge. While existing tools exist, they are often expensive, require constant internet access, or are not user-friendly. **SmartCrop AI** fills this gap with a lightweight, offline-first assistant that combines:
 
@@ -12,7 +12,27 @@ In many farming communities, timely identification and management of crop diseas
 - **Rich resource support** like videos, markdown tips, and localized explanations.
 
 ---
+## Architecture 
+```mermaid
+sequenceDiagram
+    actor User
+    participant App as 📱 Flutter App
+    participant TFLite as ⚙️ TFLite Model
+    participant DB as 🗄️ Disease DB
+    participant Gemini as 🧠 Gemini AI
 
+    note right of User: Detection Flow
+    User->>App: Captures Image
+    App->>TFLite: Sends Image for Inference
+    TFLite->>DB: Matches Label
+    TFLite->>Gemini: Sends Detection Summary
+    Gemini-->>App: Returns Detection Result and Dynamic Suggestions
+
+    note right of User: Chat Flow
+    User->>App: Asks Question
+    App->>Gemini: Sends Query + Context
+    Gemini-->>App: Returns Context-aware Answer
+```
 ## ⚡Features
 
 - **Image-Based Disease Detection**  
